@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:servicios_flutter/src/api/environment.dart';
 import 'package:servicios_flutter/src/pages/client/products/list/client_products_list_page.dart';
-import 'package:servicios_flutter/src/pages/usuario/prueba_page.dart';
+import 'package:servicios_flutter/src/pages/principal_screen.dart';
 import 'package:servicios_flutter/src/pages/usuario/user_list_page.dart';
 import 'package:servicios_flutter/src/pages/crear_cuenta/crear_cuenta_page.dart';
 import 'package:servicios_flutter/src/pages/inicio/inicio_page.dart';
@@ -30,11 +30,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Servicios App',
       debugShowCheckedModeBanner: false,
-      initialRoute: 'user_list_page',
+      initialRoute: 'principal',
       routes: {
         'login': (BuildContext context) => LoginPage(),
         'user_list_page': (BuildContext context) => UserList(),
-        'prueba': (BuildContext context) => LSOnBoardingScreen(),
+        'principal': (BuildContext context) => PrincipalScreen(),
         'usuarioCliente': (BuildContext context) => UsuarioClientePage(),
         'usuarioEmpleado': (BuildContext context) => UsuarioEmpleadoPage(),
         'recuperarPassword': (BuildContext context) => RecuperarPage(),

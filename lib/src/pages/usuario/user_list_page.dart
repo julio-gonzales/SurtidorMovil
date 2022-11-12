@@ -13,12 +13,15 @@ class UserList extends StatelessWidget {
           title: Text('Usuarios'),
         ),
         body: FutureBuilder<List<User>>(
-          initialData: [],
           future: apiServices.getUsers(),
           builder: (context, snapshot) {
-            return ListView(
-              children: _drawItems(context, snapshot),
-            );
+            if (snapshot.hasData) {
+              return ListView(
+                children: _drawItems(context, snapshot),
+              );
+            } else {
+              return const CircularProgressIndicator();
+            }
           },
         ),
         floatingActionButton: FloatingActionButton(

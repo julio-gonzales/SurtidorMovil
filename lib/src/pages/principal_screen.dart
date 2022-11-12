@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:servicios_flutter/src/pages/home.dart/home_page.dart';
 import 'package:servicios_flutter/src/pages/usuario/prueba2_page.dart';
+import 'package:servicios_flutter/src/pages/usuario/user_list_page.dart';
 import 'package:servicios_flutter/src/utils/LSColors.dart';
 import 'package:servicios_flutter/src/utils/LSImages.dart';
 
 
-class LSOnBoardingScreen extends StatefulWidget {
-  static String tag = '/LSOnBoardingScreen';
+class PrincipalScreen extends StatefulWidget {
+  static String tag = '/PrincipalScreen';
 
   @override
-  LSOnBoardingScreenState createState() => LSOnBoardingScreenState();
+  PrincipalScreenState createState() => PrincipalScreenState();
 }
 
-class LSOnBoardingScreenState extends State<LSOnBoardingScreen> {
+class PrincipalScreenState extends State<PrincipalScreen> {
   int selectedIndex = 0;
 
   List<Widget> viewContainer = [];
-
-  LSNearByFragment homeFragment = LSNearByFragment();
-  LSNearByFragment nearByFragment = LSNearByFragment();
+  HomePage homeFragment = HomePage();
+  UserList nearByFragment = UserList();
   LSNearByFragment bookingFragment = LSNearByFragment();
   LSNearByFragment offerFragment = LSNearByFragment();
   LSNearByFragment profileFragment = LSNearByFragment();
@@ -56,34 +57,34 @@ class LSOnBoardingScreenState extends State<LSOnBoardingScreen> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [
-            BoxShadow(color: Colors.amber, offset: Offset.fromDirection(3, 1), spreadRadius: 1, blurRadius: 5),
+            BoxShadow(color: Colors.black26, offset: Offset.fromDirection(3, 1), spreadRadius: 1, blurRadius: 5),
           ],
         ),
         child: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(LSHome, fit: BoxFit.fitHeight, color: Colors.black45, height: 24, width: 24),
-              activeIcon: SvgPicture.asset(LSHome, color: LSColorPrimary, height: 24, width: 24),
+              icon: SvgPicture.asset(Home, fit: BoxFit.fitHeight, color: Colors.black45, height: 24, width: 24),
+              activeIcon: SvgPicture.asset(Home, color: LSColorPrimary, height: 24, width: 24),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(LSPin, fit: BoxFit.fitHeight, color: Colors.black45, height: 24, width: 24),
-              activeIcon: SvgPicture.asset(LSPin, color: LSColorPrimary, height: 24, width: 24),
-              label: 'NearBy',
+              icon: SvgPicture.asset(Users, fit: BoxFit.fitHeight, color: Colors.black45, height: 24, width: 24),
+              activeIcon: SvgPicture.asset(Users, color: LSColorPrimary, height: 24, width: 24),
+              label: 'Usuarios',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(LSBasket, fit: BoxFit.fitHeight, color: Colors.black45, height: 24, width: 24),
-              activeIcon: SvgPicture.asset(LSBasket, color: LSColorPrimary, height: 24, width: 24),
+              icon: SvgPicture.asset(Basket, fit: BoxFit.fitHeight, color: Colors.black45, height: 24, width: 24),
+              activeIcon: SvgPicture.asset(Basket, color: LSColorPrimary, height: 24, width: 24),
               label: 'Bookings',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(LSSale, fit: BoxFit.fitHeight, color: Colors.black45, height: 24, width: 24),
-              activeIcon: SvgPicture.asset(LSSale, color: LSColorPrimary, height: 24, width: 24),
+              icon: SvgPicture.asset(Sale, fit: BoxFit.fitHeight, color: Colors.black45, height: 24, width: 24),
+              activeIcon: SvgPicture.asset(Sale, color: LSColorPrimary, height: 24, width: 24),
               label: 'Offers',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(LSUser, fit: BoxFit.fitHeight, color: Colors.black45, height: 24, width: 24),
-              activeIcon: SvgPicture.asset(LSUser, color: LSColorPrimary, height: 24, width: 24),
+              icon: SvgPicture.asset(User, fit: BoxFit.fitHeight, color: Colors.black45, height: 24, width: 24),
+              activeIcon: SvgPicture.asset(User, color: LSColorPrimary, height: 24, width: 24),
               label: 'Profile',
             ),
           ],
