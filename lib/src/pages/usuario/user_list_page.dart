@@ -46,7 +46,7 @@ class _UserListState extends State<UserList> {
   }
 
   List<Widget> _drawItems(BuildContext context, AsyncSnapshot snapshot) {
-    final List<Widget> solicitudes = [];
+    final List<Widget> users = [];
 
     if (snapshot.data.isNotEmpty) {
       snapshot.data.forEach((element) {
@@ -63,11 +63,11 @@ class _UserListState extends State<UserList> {
             Navigator.push(context, ruta);
           },
         );
-        solicitudes.add(Divider(height: 1, thickness: 2));
-        solicitudes.add(widgetTemp);
+        users.add(Divider(height: 1, thickness: 2));
+        users.add(widgetTemp);
       });
-      solicitudes.add(Divider(height: 1, thickness: 2));
+      users.add(Divider(height: 1, thickness: 2));
     }
-    return solicitudes;
+    return users;
   }
 }
