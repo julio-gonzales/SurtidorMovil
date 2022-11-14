@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LSNearByFragment extends StatelessWidget {
-const LSNearByFragment({ Key key }) : super(key: key);
+class NadaPage extends StatelessWidget {
+  const NadaPage({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('prueba2'),
-      ),
-    );
+      backgroundColor: Colors.grey[100],
+        body: Center(
+      child: Text('hola'),
+    ));
   }
 }

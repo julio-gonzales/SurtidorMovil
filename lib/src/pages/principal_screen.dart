@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:servicios_flutter/src/pages/home.dart/home_page.dart';
+import 'package:servicios_flutter/src/pages/home/home_page.dart';
 import 'package:servicios_flutter/src/pages/usuario/prueba2_page.dart';
+import 'package:servicios_flutter/src/pages/usuario/prueba_user_page.dart';
 import 'package:servicios_flutter/src/pages/usuario/user_list_page.dart';
 import 'package:servicios_flutter/src/utils/LSColors.dart';
 import 'package:servicios_flutter/src/utils/LSImages.dart';
@@ -20,9 +21,9 @@ class PrincipalScreenState extends State<PrincipalScreen> {
   List<Widget> viewContainer = [];
   HomePage homeFragment = HomePage();
   UserList nearByFragment = UserList();
-  LSNearByFragment bookingFragment = LSNearByFragment();
-  LSNearByFragment offerFragment = LSNearByFragment();
-  LSNearByFragment profileFragment = LSNearByFragment();
+  NadaPage bookingFragment = NadaPage();
+  NadaPage offerFragment = NadaPage();
+  PruebaPage profileFragment = PruebaPage();
 
   @override
   void initState() {

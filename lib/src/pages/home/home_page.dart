@@ -16,13 +16,13 @@ class HomePage extends StatelessWidget {
             pinned: true,
             automaticallyImplyLeading: false,
             titleSpacing: 0,
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.blue[700],
             actionsIconTheme: IconThemeData(opacity: 0.0),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(padding: EdgeInsets.all(8.0),
-                child: Text('SOFTIDOR')),
+                Padding(padding: EdgeInsets.symmetric(horizontal: 12),
+                child: Text('SOFTIDOR', style: TextStyle(fontWeight: FontWeight.bold),)),
                 IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.notifications, color: Colors.white))
@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('Popular Laundry Nearby'),
+                  Text('Home page de la aplicación del surtidor'),
                   TextButton(onPressed: () {}, child: Text('View All'))
                 ],
               ),
