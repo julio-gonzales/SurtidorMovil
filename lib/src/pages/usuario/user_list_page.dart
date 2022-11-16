@@ -36,6 +36,8 @@ class _UserListState extends State<UserList> {
               return ListView(
                 children: _drawItems(context, snapshot),
               );
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
             } else {
               return const Center(child: CircularProgressIndicator());
             }
@@ -51,7 +53,7 @@ class _UserListState extends State<UserList> {
     if (snapshot.data.isNotEmpty) {
       snapshot.data.forEach((element) {
         final widgetTemp = ListTile(
-          title: Text(element.name + (element.apellido == null ? '' : ' ' + element.apellido)),
+          title: Text(element.name),
           subtitle: Text(element.email),
           trailing: Text('Activo', style: TextStyle(color: Colors.blue)),
           enabled: true,

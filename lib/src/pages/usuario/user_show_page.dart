@@ -48,7 +48,7 @@ class _UserShowState extends State<UserShow> {
           return [
             SliverAppBar(
               title: Text(
-                user.name + (user.apellido == null ? '' : ' ' + user.apellido),
+                user.name,
                 style:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:servicios_flutter/models/user.dart';
 import 'package:servicios_flutter/providers/user_api.dart';
+import 'package:servicios_flutter/src/pages/usuario/user_show_page.dart';
+import 'package:servicios_flutter/src/utils/LSColors.dart';
 
 class UserEdit extends StatefulWidget {
   const UserEdit({Key key}) : super(key: key);
@@ -22,6 +24,7 @@ class _UserEditState extends State<UserEdit> {
   Widget build(BuildContext context) {
     User user = ModalRoute.of(context).settings.arguments;
     return Scaffold(
+      backgroundColor: LSColorSecondary,
       appBar: AppBar(
         title: const Text('Editar Usuario',
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
@@ -29,7 +32,7 @@ class _UserEditState extends State<UserEdit> {
       body: SingleChildScrollView(
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             shape: BoxShape.rectangle,
@@ -86,34 +89,7 @@ class _UserEditState extends State<UserEdit> {
                     ),
                     const SizedBox(
                       height: 20,
-                    ),
-                    TextFormField(
-                      controller: _apellidoController..text = user.apellido,
-                      decoration: const InputDecoration(
-                          labelText: 'Apellidos',
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5.0)),
-                            borderSide:
-                                BorderSide(color: Colors.grey, width: 0.7),
-                          ),
-                          border: OutlineInputBorder()),
-                      validator: (value) {
-                        if (value == null ||
-                            value.isEmpty ||
-                            value.length < 3) {
-                          return 'El apellido debe contener al menos 3 letras';
-                        } else if (value
-                            .contains(RegExp(r'^[0-9_\-=@,\.;]+$'))) {
-                          return 'El apellido no debe contener caracteres especiales';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    ), 
                     TextFormField(
                       controller: _emailController..text = user.email,
                       decoration: const InputDecoration(
@@ -224,7 +200,12 @@ class _UserEditState extends State<UserEdit> {
                             backgroundColor: Colors.teal[600],
                           );
                           ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                          Navigator.pop(context);
+                          final ruta = MaterialPageRoute(
+                              builder: (context) => UserShow(
+                                    userId: user.id,
+                                  ));
+                          Navigator.pushAndRemoveUntil(
+                              context, ruta, ModalRoute.withName('/'));
                         }
                       },
                       child: const Text("Guardar"),

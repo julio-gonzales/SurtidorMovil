@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
+
 import 'package:servicios_flutter/models/user.dart';
+import 'package:servicios_flutter/providers/auth_provider.dart';
 
 class _ApiService {
   String urlBase = 'http://10.0.2.2:8000/api/users';
@@ -11,8 +14,11 @@ class _ApiService {
   }
 
   Future<List<User>> getUsers() async {
-    var url = Uri.parse(urlBase);
-    Response res = await get(url);
+    String token = await AuthProvider().getToken();
+    Response res = await get(Uri.parse(urlBase), headers: {
+      'Authorization': 'Bearer $token',
+    });
+    print('token 2' + token);
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
       List<User> users = [];

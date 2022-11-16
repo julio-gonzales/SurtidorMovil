@@ -14,11 +14,11 @@ import 'package:servicios_flutter/src/pages/usuario/usuario_empleado_page.dart';
 
 Map<String, WidgetBuilder> getAppRoutes() {
   return <String, WidgetBuilder>{
-    'login': (BuildContext context) => LoginPage(),
+    'login': (BuildContext context) => const LoginPage(),
     'principal': (BuildContext context) => PrincipalScreen(),
-    'user_list': (BuildContext context) => UserList(),
-    'user_show': (BuildContext context) => UserShow(),
-    'user_edit': (BuildContext context) => UserEdit(),
+    'user_list': (BuildContext context) => const UserList(),
+    'user_show': (BuildContext context) => const UserShow(),
+    'user_edit': (BuildContext context) => const UserEdit(),
 
     'usuarioCliente': (BuildContext context) => UsuarioClientePage(),
     'usuarioEmpleado': (BuildContext context) => UsuarioEmpleadoPage(),
