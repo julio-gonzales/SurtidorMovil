@@ -1,4 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as p;
 import 'package:servicios_flutter/models/user.dart';
 import 'package:servicios_flutter/providers/user_api.dart';
 import 'package:servicios_flutter/src/pages/usuario/user_show_page.dart';
@@ -14,11 +19,14 @@ class UserEdit extends StatefulWidget {
 class _UserEditState extends State<UserEdit> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final _nombreController = TextEditingController();
-  final _apellidoController = TextEditingController();
   final _emailController = TextEditingController();
   final _telefonoController = TextEditingController();
   final _direccionController = TextEditingController();
   bool estado;
+  //File _fotoPerfil;
+  String _fotoPerfil;
+  String _fotoExtension;
+  final _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +97,7 @@ class _UserEditState extends State<UserEdit> {
                     ),
                     const SizedBox(
                       height: 20,
-                    ), 
+                    ),
                     TextFormField(
                       controller: _emailController..text = user.email,
                       decoration: const InputDecoration(
@@ -183,8 +191,23 @@ class _UserEditState extends State<UserEdit> {
                             estado = value;
                           });
                         }),
+                    TextButton(
+                        onPressed: () {
+                          getImage();
+                        },
+                        child: const Text('Actualizar foto de perfil')),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 300,
+                      color: Colors.grey[300],
+                      child: _fotoPerfil != null
+                          ? Image.memory(base64Decode(_fotoPerfil),
+                              fit: BoxFit.cover)
+                          : const Text('Please select an image'),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -220,14 +243,27 @@ class _UserEditState extends State<UserEdit> {
     );
   }
 
-  Map getDataForm() {
+  Map<String, dynamic> getDataForm() {
     var mapForm = <String, dynamic>{};
     mapForm['name'] = _nombreController.text;
-    mapForm['apellido'] = _apellidoController.text;
     mapForm['telefono'] = _telefonoController.text;
     mapForm['direccion'] = _direccionController.text;
     mapForm['estado'] = estado;
-
+    mapForm['foto_perfil'] = _fotoPerfil;
+    mapForm['foto_extension'] = _fotoExtension;
     return mapForm;
+  }
+
+  Future<void> getImage() async {
+    var image = await _picker.pickImage(source: ImageSource.gallery);
+    _fotoExtension = p.extension(image.path);
+    if (image != null) {
+      File imageFile = File(image.path);
+      var bytes = imageFile.readAsBytesSync();
+      setState(() {
+        _fotoPerfil = base64Encode(bytes);
+        print(_fotoExtension);
+      });
+    }
   }
 }

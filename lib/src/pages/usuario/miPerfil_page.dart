@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:servicios_flutter/providers/auth_provider.dart';
 import 'package:servicios_flutter/src/utils/LSColors.dart';
@@ -19,7 +18,7 @@ class MiPerfilPage extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.login_outlined),
             tileColor: Colors.white,
-            title: Text('Cerrar sesión'),
+            title: const Text('Cerrar sesión'),
             onTap: () {
               AuthProvider().deleteToken();
               Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);

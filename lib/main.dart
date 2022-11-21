@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
               case true:
                 return PrincipalScreen();
               default:
-                return LoginPage();
+                return PrincipalScreen();
             }
           },
         ));

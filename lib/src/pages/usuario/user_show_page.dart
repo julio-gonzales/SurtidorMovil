@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:servicios_flutter/models/user.dart';
 import 'package:servicios_flutter/providers/user_api.dart';
 import 'package:servicios_flutter/src/pages/usuario/datos_component.dart';
 import 'package:servicios_flutter/src/pages/usuario/prueba2_page.dart';
+import 'package:servicios_flutter/src/utils/LSImages.dart';
 
 class UserShow extends StatefulWidget {
   final int userId;
@@ -21,13 +23,16 @@ class _UserShowState extends State<UserShow> {
     updateUser();
   }
 
-  Future<void> updateUser() {
+  Future<void> updateUser() async {
     user = apiServices.getUser(widget.userId);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+/*         appBar: AppBar(
+          title: Text('data'),
+        ), */
         body: SafeArea(
             child: FutureBuilder<User>(
                 future: user,
@@ -47,10 +52,14 @@ class _UserShowState extends State<UserShow> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              title: Text(
-                user.name,
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              title: Container(
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: Text(
+                  user.name,
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                ),
               ),
               centerTitle: true,
               scrolledUnderElevation: 2,
@@ -72,21 +81,30 @@ class _UserShowState extends State<UserShow> {
               pinned: true,
               backgroundColor: Colors.white,
               elevation: 0.5,
-              expandedHeight: 360,
+              expandedHeight: 460,
               flexibleSpace: FlexibleSpaceBar(
-                /* titlePadding: EdgeInsets.only(bottom: 62, left: 40, right: 50), */
                 collapseMode: CollapseMode.parallax,
                 background: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Stack(
-                      children: [
-                        Image.network(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQH1yT4DmHv_jOOt7GLCO2pZY4wcst77Nvi4A&usqp=CAU',
-                            height: 300,
-                            width: 500,
-                            fit: BoxFit.fill),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 57),
+                      child: SizedBox(
+                        height: 350,
+                        width: double.infinity,
+                        child: CachedNetworkImage(
+                          alignment: Alignment.center,
+                          imageUrl: user.foto_perfil,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              Image.asset(loadingPoints,height: 350,fit: BoxFit.cover,),
+                          errorWidget: (context, url, error) => Container(
+                            height: 20,
+                            width: 20,
+                              alignment: Alignment.center,
+                              child: const Icon(Icons.error)),
+                        ),
+                      ),
                     ),
                   ],
                 ),

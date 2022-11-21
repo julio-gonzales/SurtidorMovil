@@ -1,10 +1,10 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:http/http.dart';
-import 'package:provider/provider.dart';
-
+import 'package:path/path.dart';
 import 'package:servicios_flutter/models/user.dart';
 import 'package:servicios_flutter/providers/auth_provider.dart';
+import 'package:http_parser/http_parser.dart';
 
 class _ApiService {
   String urlBase = 'http://10.0.2.2:8000/api/users';
@@ -18,7 +18,6 @@ class _ApiService {
     Response res = await get(Uri.parse(urlBase), headers: {
       'Authorization': 'Bearer $token',
     });
-    print('token 2' + token);
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
       List<User> users = [];
@@ -44,22 +43,17 @@ class _ApiService {
   }
 
   Future<void> updateUser(int userId, Map mapForm) async {
-    final response = await put(
-      Uri.parse('$urlBase/$userId'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(mapForm),
-    );
+    var response = await patch(Uri.parse('$urlBase/$userId'),
+        body: jsonEncode(mapForm),
+        headers: {
+          "Content-type": "application/json",
+        });
+    print('antes del submit');
 
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
       print('update exitoso!!!');
     } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to update album.');
+      print('Failed to update.');
     }
   }
 }

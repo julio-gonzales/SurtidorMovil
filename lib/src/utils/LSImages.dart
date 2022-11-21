@@ -1,3 +1,4 @@
+const loadingPoints = 'assets/img/points_loading.gif';
 const LSWalk1 = 'images/ls_walk1.png';
 const LSBgWalk1 = 'images/ls_bgWalk1.png';
 const LSWalk2 = 'images/ls_walk2.png';
@@ -15,7 +16,7 @@ const Basket = 'assets/img/iconos/basket_icon.svg';
 const Home = 'assets/img/iconos/home_icon.svg';
 const Pin = 'assets/img/iconos/pin_icon.svg';
 const Sale = "assets/img/iconos/sale_icon.svg";
-const User = 'assets/img/iconos/user_icon.svg';
+const UserIcon = 'assets/img/iconos/user_icon.svg';
 const Users = 'assets/img/iconos/users_icon.svg';
 const LSTowels = "images/ls_towels.png";
 const LSWaterSupply = "images/ls_water_supply.png";

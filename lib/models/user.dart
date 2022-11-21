@@ -13,6 +13,7 @@ class User {
     this.direccion,
     this.telefono,
     this.estado,
+    this.foto_perfil,
     this.createdAt,
     this.updatedAt,
   });
@@ -24,6 +25,7 @@ class User {
   final dynamic direccion;
   final dynamic telefono;
   final bool estado;
+  final String foto_perfil;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -35,6 +37,7 @@ class User {
         direccion: json["direccion"],
         telefono: json["telefono"],
         estado: json["estado"],
+        foto_perfil: json["foto_perfil"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -47,6 +50,7 @@ class User {
         "direccion": direccion,
         "telefono": telefono,
         "estado": estado,
+        "foto_perfil": foto_perfil,
         "created_at": createdAt,
         "updated_at": updatedAt,
       };
