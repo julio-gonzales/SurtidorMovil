@@ -213,22 +213,30 @@ class _UserEditState extends State<UserEdit> {
                       style: ElevatedButton.styleFrom(
                           minimumSize: const Size.fromHeight(60),
                           backgroundColor: Colors.teal),
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState.validate()) {
                           Map mapForm = getDataForm();
-                          apiServices.updateUser(user.id, mapForm);
-                          final snackbar = SnackBar(
+                          final snackbarUpdate = SnackBar(
+                            content: const Text('Actualizando datos...'),
+                            backgroundColor: Colors.teal[600],
+                          );
+                          final snackbarUpdateComplete = SnackBar(
                             content:
                                 const Text('Datos actualizados correctamente'),
                             backgroundColor: Colors.teal[600],
                           );
-                          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(snackbarUpdate);
+                          await apiServices.updateUser(user.id, mapForm);
+                          ScaffoldMessenger.of(context).clearSnackBars();
                           final ruta = MaterialPageRoute(
                               builder: (context) => UserShow(
                                     userId: user.id,
                                   ));
                           Navigator.pushAndRemoveUntil(
                               context, ruta, ModalRoute.withName('/'));
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(snackbarUpdateComplete);
                         }
                       },
                       child: const Text("Guardar"),
@@ -256,8 +264,8 @@ class _UserEditState extends State<UserEdit> {
 
   Future<void> getImage() async {
     var image = await _picker.pickImage(source: ImageSource.gallery);
-    _fotoExtension = p.extension(image.path);
     if (image != null) {
+      _fotoExtension = p.extension(image.path);
       File imageFile = File(image.path);
       var bytes = imageFile.readAsBytesSync();
       setState(() {

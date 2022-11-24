@@ -28,7 +28,10 @@ class _UserListState extends State<UserList> {
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
       ),
       body: RefreshIndicator(
-        onRefresh: () => apiServices.getUsers(),
+        onRefresh: () {
+          setState(() {});
+          return apiServices.getUsers();
+        },
         child: FutureBuilder<List<User>>(
           future: users,
           builder: (context, snapshot) {
@@ -72,4 +75,5 @@ class _UserListState extends State<UserList> {
     }
     return users;
   }
+
 }

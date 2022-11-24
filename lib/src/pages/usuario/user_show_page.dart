@@ -5,6 +5,7 @@ import 'package:servicios_flutter/providers/user_api.dart';
 import 'package:servicios_flutter/src/pages/usuario/datos_component.dart';
 import 'package:servicios_flutter/src/pages/usuario/prueba2_page.dart';
 import 'package:servicios_flutter/src/utils/LSImages.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class UserShow extends StatefulWidget {
   final int userId;
@@ -23,16 +24,13 @@ class _UserShowState extends State<UserShow> {
     updateUser();
   }
 
-  Future<void> updateUser() async {
+  void updateUser() {
     user = apiServices.getUser(widget.userId);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-/*         appBar: AppBar(
-          title: Text('data'),
-        ), */
         body: SafeArea(
             child: FutureBuilder<User>(
                 future: user,
@@ -90,21 +88,33 @@ class _UserShowState extends State<UserShow> {
                     Padding(
                       padding: const EdgeInsets.only(top: 57),
                       child: SizedBox(
-                        height: 350,
-                        width: double.infinity,
-                        child: CachedNetworkImage(
-                          alignment: Alignment.center,
-                          imageUrl: user.foto_perfil,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) =>
-                              Image.asset(loadingPoints,height: 350,fit: BoxFit.cover,),
-                          errorWidget: (context, url, error) => Container(
-                            height: 20,
-                            width: 20,
-                              alignment: Alignment.center,
-                              child: const Icon(Icons.error)),
-                        ),
-                      ),
+                          height: 350,
+                          width: double.infinity,
+                          child: FutureBuilder<String>(
+                            future: getImagen(user.foto_perfil),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return CachedNetworkImage(
+                                    alignment: Alignment.center,
+                                    imageUrl: snapshot.data,
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) => Image.asset(
+                                          loadingPoints,
+                                          height: 350,
+                                          fit: BoxFit.cover,
+                                        ),
+                                    errorWidget: (context, url, error) =>
+                                        Container(
+                                            height: 20,
+                                            width: 20,
+                                            alignment: Alignment.center,
+                                            child: const Icon(Icons.error)));
+                              } else {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
+                            },
+                          )),
                     ),
                   ],
                 ),
@@ -135,5 +145,17 @@ class _UserShowState extends State<UserShow> {
         ),
       ),
     );
+  }
+
+  Future<String> getImagen(String foto) async {
+    print(foto);
+    final FirebaseStorage storage = FirebaseStorage.instance;
+    final ref = storage.ref().child(foto);
+    print(ref);
+    String img;
+    if (ref.fullPath != null) {
+      img = await ref.getDownloadURL();
+    }
+    return img;
   }
 }

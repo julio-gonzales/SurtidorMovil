@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:servicios_flutter/providers/auth_provider.dart';
@@ -11,10 +12,12 @@ import 'package:servicios_flutter/src/utils/AppTheme.dart';
   // probar();
 } */
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(ChangeNotifierProvider(
     create: (BuildContext context) => AuthProvider(),
-    child: MyApp(),
+    child: const MyApp(),
   ));
   // probar();
 }

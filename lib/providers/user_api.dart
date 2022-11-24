@@ -38,11 +38,10 @@ class _ApiService {
       return User.fromJson(jsonDecode(response.body));
     } else {
       print("ERROR!!!!");
-      throw Exception('Failed to load album');
     }
   }
 
-  Future<void> updateUser(int userId, Map mapForm) async {
+  Future<bool> updateUser(int userId, Map mapForm) async {
     var response = await patch(Uri.parse('$urlBase/$userId'),
         body: jsonEncode(mapForm),
         headers: {
@@ -52,8 +51,10 @@ class _ApiService {
 
     if (response.statusCode == 200) {
       print('update exitoso!!!');
+      return true;
     } else {
       print('Failed to update.');
+      return false;
     }
   }
 }
