@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:servicios_flutter/src/pages/home/home_page.dart';
+import 'package:servicios_flutter/src/pages/producto/producto_list_page.dart';
 import 'package:servicios_flutter/src/pages/usuario/miPerfil_page.dart';
 import 'package:servicios_flutter/src/pages/usuario/prueba2_page.dart';
-import 'package:servicios_flutter/src/pages/usuario/prueba_user_page.dart';
 import 'package:servicios_flutter/src/pages/usuario/user_list_page.dart';
 import 'package:servicios_flutter/src/utils/LSColors.dart';
 import 'package:servicios_flutter/src/utils/LSImages.dart';
@@ -20,11 +20,11 @@ class PrincipalScreenState extends State<PrincipalScreen> {
   int selectedIndex = 0;
 
   List<Widget> viewContainer = [];
-  HomePage homeFragment = HomePage();
-  UserList nearByFragment = UserList();
-  NadaPage bookingFragment = NadaPage();
-  NadaPage offerFragment = NadaPage();
-  MiPerfilPage profileFragment = MiPerfilPage();
+  HomePage homeFragment = const HomePage();
+  UserList userListPage = const UserList();
+  NadaPage bookingFragment = const NadaPage();
+  ProductoList productoListPage = const ProductoList();
+  MiPerfilPage profileFragment = const MiPerfilPage();
 
   @override
   void initState() {
@@ -35,9 +35,9 @@ class PrincipalScreenState extends State<PrincipalScreen> {
   init() async {
     viewContainer = [
       homeFragment,
-      nearByFragment,
+      userListPage,
       bookingFragment,
-      offerFragment,
+      productoListPage,
       profileFragment,
     ];
   }
@@ -80,9 +80,9 @@ class PrincipalScreenState extends State<PrincipalScreen> {
               label: 'Bookings',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(Sale, fit: BoxFit.fitHeight, color: Colors.black45, height: 24, width: 24),
-              activeIcon: SvgPicture.asset(Sale, color: LSColorPrimary, height: 24, width: 24),
-              label: 'Offers',
+              icon: SvgPicture.asset(AlmacenIcon, fit: BoxFit.fitHeight, color: Colors.black45, height: 24, width: 24),
+              activeIcon: SvgPicture.asset(AlmacenIcon, color: LSColorPrimary, height: 24, width: 24),
+              label: 'Inventario',
             ),
             const BottomNavigationBarItem(
               icon: Icon(Icons.settings)  /* SvgPicture.asset(User, fit: BoxFit.fitHeight, color: Colors.black45, height: 24, width: 24) */,

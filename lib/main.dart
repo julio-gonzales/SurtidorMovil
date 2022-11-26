@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:servicios_flutter/providers/auth_provider.dart';
-import 'package:servicios_flutter/src/pages/login/login_page.dart';
 import 'package:servicios_flutter/src/pages/principal_screen.dart';
 import 'package:servicios_flutter/src/routes/routes.dart';
 import 'package:servicios_flutter/src/utils/AppTheme.dart';

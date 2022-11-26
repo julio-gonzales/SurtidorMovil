@@ -4,6 +4,7 @@ import 'package:servicios_flutter/src/pages/crear_cuenta/crear_cuenta_page.dart'
 import 'package:servicios_flutter/src/pages/inicio/inicio_page.dart';
 import 'package:servicios_flutter/src/pages/login/login_page.dart';
 import 'package:servicios_flutter/src/pages/principal_screen.dart';
+import 'package:servicios_flutter/src/pages/producto/producto_list_page.dart';
 import 'package:servicios_flutter/src/pages/recuperar_password/recuperar_password_page.dart';
 import 'package:servicios_flutter/src/pages/tanques/tanque_page.dart';
 import 'package:servicios_flutter/src/pages/usuario/user_edit_page.dart';
@@ -19,6 +20,8 @@ Map<String, WidgetBuilder> getAppRoutes() {
     'user_list': (BuildContext context) => const UserList(),
     'user_show': (BuildContext context) => const UserShow(),
     'user_edit': (BuildContext context) => const UserEdit(),
+
+    'producto_list': (BuildContext context) => const ProductoList(),
 
     'usuarioCliente': (BuildContext context) => UsuarioClientePage(),
     'usuarioEmpleado': (BuildContext context) => UsuarioEmpleadoPage(),

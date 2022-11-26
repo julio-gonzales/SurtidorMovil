@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as p;
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:servicios_flutter/models/user.dart';
-import 'package:servicios_flutter/providers/user_api.dart';
+import 'package:servicios_flutter/providers/user_provider.dart';
 import 'package:servicios_flutter/src/pages/usuario/user_show_page.dart';
 import 'package:servicios_flutter/src/utils/LSColors.dart';
 
@@ -25,7 +25,6 @@ class _UserEditState extends State<UserEdit> {
   bool estado;
   //File _fotoPerfil;
   String _fotoPerfil;
-  String _fotoExtension;
   final _picker = ImagePicker();
 
   @override
@@ -161,7 +160,7 @@ class _UserEditState extends State<UserEdit> {
                       height: 20,
                     ),
                     DropdownButtonFormField(
-                        value: user.estado == null ? false : true,
+                        value: user.estado != null ? user.estado : true,
                         decoration: const InputDecoration(
                             enabledBorder: OutlineInputBorder(
                               borderRadius:
@@ -199,16 +198,15 @@ class _UserEditState extends State<UserEdit> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      height: 300,
-                      color: Colors.grey[300],
-                      child: _fotoPerfil != null
-                          ? Image.memory(base64Decode(_fotoPerfil),
-                              fit: BoxFit.cover)
-                          : const Text('Please select an image'),
-                    ),
+                    if (_fotoPerfil != null) ...{
+                      Container(
+                          alignment: Alignment.center,
+                          width: double.infinity,
+                          height: 300,
+                          color: Colors.grey[300],
+                          child: Image.memory(base64Decode(_fotoPerfil),
+                              fit: BoxFit.cover)),
+                    },
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           minimumSize: const Size.fromHeight(60),
@@ -216,18 +214,9 @@ class _UserEditState extends State<UserEdit> {
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
                           Map mapForm = getDataForm();
-                          final snackbarUpdate = SnackBar(
-                            content: const Text('Actualizando datos...'),
-                            backgroundColor: Colors.teal[600],
-                          );
-                          final snackbarUpdateComplete = SnackBar(
-                            content:
-                                const Text('Datos actualizados correctamente'),
-                            backgroundColor: Colors.teal[600],
-                          );
                           ScaffoldMessenger.of(context)
                               .showSnackBar(snackbarUpdate);
-                          await apiServices.updateUser(user.id, mapForm);
+                          await userProvider.updateUser(user.id, mapForm);
                           ScaffoldMessenger.of(context).clearSnackBars();
                           final ruta = MaterialPageRoute(
                               builder: (context) => UserShow(
@@ -258,20 +247,39 @@ class _UserEditState extends State<UserEdit> {
     mapForm['direccion'] = _direccionController.text;
     mapForm['estado'] = estado;
     mapForm['foto_perfil'] = _fotoPerfil;
-    mapForm['foto_extension'] = _fotoExtension;
     return mapForm;
   }
 
   Future<void> getImage() async {
     var image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      _fotoExtension = p.extension(image.path);
-      File imageFile = File(image.path);
+      _cropImage(image.path);
+    }
+  }
+
+  Future<void> _cropImage(filePath) async {
+    final croppedImage = await ImageCropper().cropImage(
+        sourcePath: filePath,
+        compressFormat: ImageCompressFormat.jpg,
+        maxWidth: 1080,
+        maxHeight: 1080,
+        aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0));
+    if (croppedImage != null) {
+      File imageFile = File(croppedImage.path);
       var bytes = imageFile.readAsBytesSync();
       setState(() {
         _fotoPerfil = base64Encode(bytes);
-        print(_fotoExtension);
+        print('cropeado');
       });
     }
   }
+
+  final snackbarUpdate = SnackBar(
+    content: const Text('Actualizando datos...'),
+    backgroundColor: Colors.teal[600],
+  );
+  final snackbarUpdateComplete = SnackBar(
+    content: const Text('Datos actualizados correctamente'),
+    backgroundColor: Colors.teal[600],
+  );
 }
