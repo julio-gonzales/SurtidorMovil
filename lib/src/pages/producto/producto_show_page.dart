@@ -32,17 +32,18 @@ class _ProductoShowState extends State<ProductoShow> {
         backgroundColor: LSColorSecondary,
         appBar: AppBar(
             title: const Text('Información del producto', style: tituloAppBar)),
-        body: SingleChildScrollView(
-          child: FutureBuilder<Producto>(
-              future: producto,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return _drawDatos(snapshot.data);
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              }),
-        ));
+        body: FutureBuilder<Producto>(
+            future: producto,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return SingleChildScrollView(
+                  child: _drawDatos(snapshot.data),
+                );
+                //return const Center(child: CircularProgressIndicator());
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            }));
   }
 
   Container _drawDatos(Producto producto) {

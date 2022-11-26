@@ -1,8 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:servicios_flutter/src/api/environment.dart';
 import 'package:servicios_flutter/src/models/response_api.dart';
 import 'package:servicios_flutter/src/models/user.dart';
 import 'package:servicios_flutter/src/provider/users_provider.dart';
@@ -10,14 +6,14 @@ import 'package:servicios_flutter/src/utils/my_snackbar.dart';
 
 class CrearCuentaController {
   BuildContext context;
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController ciController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
-  TextEditingController nombreController = new TextEditingController();
-  TextEditingController apellidoController = new TextEditingController();
-  TextEditingController celularController = new TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController ciController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController nombreController = TextEditingController();
+  TextEditingController apellidoController = TextEditingController();
+  TextEditingController celularController = TextEditingController();
 
-  UsersProvider usersProvider = new UsersProvider();
+  UsersProvider usersProvider = UsersProvider();
 
   Future init(BuildContext context) {
     this.context = context;
@@ -56,7 +52,7 @@ class CrearCuentaController {
       return;
     }
 
-    User user = new User(
+    User user = User(
         email: email,
         nombre: nombre,
         apellido: apellido,

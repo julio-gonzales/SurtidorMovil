@@ -41,13 +41,15 @@ dependencies:
   device_info_plus: ^8.0.0
   cached_network_image: ^3.2.2
   image_picker: ^0.8.6
-  # UI
   flutter_svg: ^0.22.0
-  cupertino_icons: ^1.0.2
-  google_fonts: ^3.0.1
+  url_launcher: ^6.1.7
   firebase_core: ^2.3.0
   firebase_storage: ^11.0.6
   image_cropper: ^3.0.1
+
+  # UI
+  cupertino_icons: ^1.0.2
+  google_fonts: ^3.0.1
 
 dev_dependencies:
   flutter_test:

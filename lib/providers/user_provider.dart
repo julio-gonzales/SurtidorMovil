@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:servicios_flutter/models/user.dart';
-import 'package:servicios_flutter/providers/auth_provider.dart';
+import 'package:servicios_flutter/providers/global_provider.dart';
 
 class _UserProvider {
-  String urlBase = 'http://10.0.2.2:8000/api/users';
 
+  String urlBase = '${GlobalProvider().urlApi}/users';
+  
   _UserProvider() {
     //
   }

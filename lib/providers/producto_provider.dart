@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:servicios_flutter/models/producto.dart';
+import 'package:servicios_flutter/providers/global_provider.dart';
 
 class _ProductoProvider {
-  String urlBase = 'http://10.0.2.2:8000/api/productos';
+
+  String urlBase = '${GlobalProvider().urlApi}/productos';
 
   _ProductoProvider() {
     //
@@ -36,6 +38,7 @@ class _ProductoProvider {
     } else {
       print("error get producto");
     }
+    return null;
   }
 
   /* Future<bool> updateUser(int userId, Map mapForm) async {
