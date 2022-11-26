@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:servicios_flutter/models/user.dart';
-import 'package:servicios_flutter/providers/user_api.dart';
+import 'package:servicios_flutter/providers/user_provider.dart';
 import 'package:servicios_flutter/src/pages/usuario/datos_component.dart';
 import 'package:servicios_flutter/src/pages/usuario/prueba2_page.dart';
+import 'package:servicios_flutter/src/utils/LSImages.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class UserShow extends StatefulWidget {
   final int userId;
@@ -21,8 +24,8 @@ class _UserShowState extends State<UserShow> {
     updateUser();
   }
 
-  Future<void> updateUser() {
-    user = apiServices.getUser(widget.userId);
+  void updateUser() {
+    user = userProvider.getUser(widget.userId);
   }
 
   @override
@@ -47,10 +50,14 @@ class _UserShowState extends State<UserShow> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              title: Text(
-                user.name + (user.apellido == null ? '' : ' ' + user.apellido),
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              title: Container(
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: Text(
+                  user.name,
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                ),
               ),
               centerTitle: true,
               scrolledUnderElevation: 2,
@@ -72,21 +79,15 @@ class _UserShowState extends State<UserShow> {
               pinned: true,
               backgroundColor: Colors.white,
               elevation: 0.5,
-              expandedHeight: 360,
+              expandedHeight: 460,
               flexibleSpace: FlexibleSpaceBar(
-                /* titlePadding: EdgeInsets.only(bottom: 62, left: 40, right: 50), */
                 collapseMode: CollapseMode.parallax,
                 background: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Stack(
-                      children: [
-                        Image.network(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQH1yT4DmHv_jOOt7GLCO2pZY4wcst77Nvi4A&usqp=CAU',
-                            height: 300,
-                            width: 500,
-                            fit: BoxFit.fill),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 57),
+                      child: imageBox(user.foto_perfil),
                     ),
                   ],
                 ),
@@ -113,9 +114,65 @@ class _UserShowState extends State<UserShow> {
           ];
         },
         body: TabBarView(
-          children: [DatosComponent(user: user), NadaPage()],
+          children: [DatosComponent(user: user), const NadaPage()],
         ),
       ),
     );
+  }
+
+  Future<String> getImageUrl(String foto) async {
+    String img;
+    if (foto != null) {
+      final FirebaseStorage storage = FirebaseStorage.instance;
+      final ref = storage.ref().child(foto);
+      await ref.getDownloadURL().then((value) {
+        img = value;
+      });
+    } else {
+      img = 'no';
+    }
+    return img;
+  }
+
+  SizedBox imageBox(String fotoPerfil) {
+    return SizedBox(
+        height: 350,
+        width: double.infinity,
+        child: FutureBuilder<String>(
+          future: getImageUrl(fotoPerfil),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data == 'no') {
+                return Container(
+                  child: Image.asset(
+                    userFotoDefault,
+                    fit: BoxFit.cover,
+                  ),
+                );
+              } else {
+                return imageWidget(snapshot.data);
+              }
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ));
+  }
+
+  CachedNetworkImage imageWidget(String imageUrl) {
+    return CachedNetworkImage(
+        alignment: Alignment.center,
+        imageUrl: imageUrl,
+        fit: BoxFit.cover,
+        placeholder: (context, url) => Image.asset(
+              loadingPoints,
+              height: 350,
+              fit: BoxFit.cover,
+            ),
+        errorWidget: (context, url, error) => Container(
+            height: 20,
+            width: 20,
+            alignment: Alignment.center,
+            child: const Icon(Icons.error)));
   }
 }

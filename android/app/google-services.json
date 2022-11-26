@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "613855447592",
+    "project_id": "surtidor-storage",
+    "storage_bucket": "surtidor-storage.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613855447592:android:8e307f7d0c4919708ec31d",
+        "android_client_info": {
+          "package_name": "com.example.servicios_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613855447592-11gmk8p3fp6u3lggfvmooqg54pdi26to.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQFF2mB3MyUTmWWY5ZnPHo5y1jY0q3Yiw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613855447592-11gmk8p3fp6u3lggfvmooqg54pdi26to.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "613855447592-g9k2tfdv9h1rttons96p958pbsr9vv2q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.serviciosFlutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

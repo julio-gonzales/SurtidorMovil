@@ -33,7 +33,6 @@ class DatosComponent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               dato('Nombre', user.name),
-              dato('Apellidos', user.apellido),
               dato('Email', user.email),
               dato('Telefono', user.telefono),
               dato('Dirección', user.direccion),
@@ -58,7 +57,7 @@ class DatosComponent extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, 'user_edit', arguments: user);
+          Navigator.pushNamed(context, 'user_edit',  arguments: user);
         },
         child: Icon(Icons.edit),
       ),

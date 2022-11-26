@@ -1,18 +1,20 @@
 import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:servicios_flutter/models/user.dart';
+import 'package:servicios_flutter/providers/auth_provider.dart';
 
-class _ApiService {
+class _UserProvider {
   String urlBase = 'http://10.0.2.2:8000/api/users';
 
-  _ApiService() {
+  _UserProvider() {
     //
   }
 
   Future<List<User>> getUsers() async {
-    var url = Uri.parse(urlBase);
-    Response res = await get(url);
+    //String token = await AuthProvider().getToken();
+    Response res = await get(Uri.parse(urlBase), headers: {
+      //'Authorization': 'Bearer $token',
+    });
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
       List<User> users = [];
@@ -21,7 +23,7 @@ class _ApiService {
       }
       return users;
     } else {
-      print("ERROR!!!!");
+      print("error get users");
       return [];
     }
   }
@@ -32,30 +34,25 @@ class _ApiService {
       print("get user exitoso!!!!");
       return User.fromJson(jsonDecode(response.body));
     } else {
-      print("ERROR!!!!");
-      throw Exception('Failed to load album');
+      print("error get user");
     }
   }
 
-  Future<void> updateUser(int userId, Map mapForm) async {
-    final response = await put(
-      Uri.parse('$urlBase/$userId'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(mapForm),
-    );
+  Future<bool> updateUser(int userId, Map mapForm) async {
+    var response = await patch(Uri.parse('$urlBase/$userId'),
+        body: jsonEncode(mapForm),
+        headers: {
+          "Content-type": "application/json",
+        });
 
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      print('update exitoso!!!');
+      print('update user exitoso!!!');
+      return true;
     } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to update album.');
+      print('error update user');
+      return false;
     }
   }
 }
 
-final apiServices = new _ApiService();
+final userProvider = new _UserProvider();

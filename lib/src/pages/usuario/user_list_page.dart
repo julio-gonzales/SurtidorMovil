@@ -1,7 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:servicios_flutter/providers/user_api.dart';
+import 'package:servicios_flutter/providers/firebase_provider.dart';
+import 'package:servicios_flutter/providers/user_provider.dart';
 import 'package:servicios_flutter/models/user.dart';
 import 'package:servicios_flutter/src/pages/usuario/user_show_page.dart';
+import 'package:servicios_flutter/src/utils/LSImages.dart';
+import 'package:servicios_flutter/src/utils/TextStyles.dart';
 
 class UserList extends StatefulWidget {
   const UserList({Key key}) : super(key: key);
@@ -16,19 +21,24 @@ class _UserListState extends State<UserList> {
   @override
   void initState() {
     super.initState();
-    users = apiServices.getUsers();
+    users = userProvider.getUsers();
   }
+
+  double imgHeight = 60;
+  double imgWidth = 60;
 
   @override
   Widget build(BuildContext context) {
-    Future<List<User>> users = apiServices.getUsers();
+    Future<List<User>> users = userProvider.getUsers();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Usuarios del sistema',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+        title: const Text('Usuarios del sistema', style: tituloAppBar),
       ),
       body: RefreshIndicator(
-        onRefresh: () => apiServices.getUsers(),
+        onRefresh: () {
+          setState(() {});
+          return userProvider.getUsers();
+        },
         child: FutureBuilder<List<User>>(
           future: users,
           builder: (context, snapshot) {
@@ -36,6 +46,8 @@ class _UserListState extends State<UserList> {
               return ListView(
                 children: _drawItems(context, snapshot),
               );
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
             } else {
               return const Center(child: CircularProgressIndicator());
             }
@@ -51,10 +63,35 @@ class _UserListState extends State<UserList> {
     if (snapshot.data.isNotEmpty) {
       snapshot.data.forEach((element) {
         final widgetTemp = ListTile(
-          title: Text(element.name + (element.apellido == null ? '' : ' ' + element.apellido)),
+          title: Text(element.name),
           subtitle: Text(element.email),
           trailing: Text('Activo', style: TextStyle(color: Colors.blue)),
           enabled: true,
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: FutureBuilder<String>(
+              future: firebaseProvider.getUrlImagen(element.foto_perfil),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data == 'no') {
+                    return Image.asset(
+                      userFotoDefault,
+                      height: 85,
+                      fit: BoxFit.cover,
+                    );
+                  } else {
+                    return imageWidget(snapshot.data);
+                  }
+                } else {
+                  return Container(
+                      padding: EdgeInsets.all(17),
+                      height: imgWidth,
+                      width: imgWidth,
+                      child: CircularProgressIndicator());
+                }
+              },
+            ),
+          ),
           onTap: () {
             final ruta = MaterialPageRoute(
                 builder: (context) => UserShow(
@@ -69,5 +106,24 @@ class _UserListState extends State<UserList> {
       users.add(Divider(height: 1, thickness: 2));
     }
     return users;
+  }
+
+  CachedNetworkImage imageWidget(String imageUrl) {
+    return CachedNetworkImage(
+        alignment: Alignment.center,
+        imageUrl: imageUrl,
+        fit: BoxFit.cover,
+        height: imgHeight,
+        width: imgWidth,
+        placeholder: (context, url) => Image.asset(
+              loadingPoints,
+              height: imgWidth,
+              fit: BoxFit.cover,
+            ),
+        errorWidget: (context, url, error) => Container(
+            height: imgHeight,
+            width: imgWidth,
+            alignment: Alignment.center,
+            child: const Icon(Icons.error)));
   }
 }
