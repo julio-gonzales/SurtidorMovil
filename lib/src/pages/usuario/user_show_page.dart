@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:servicios_flutter/models/user.dart';
 import 'package:servicios_flutter/providers/user_provider.dart';
-import 'package:servicios_flutter/src/pages/usuario/datos_component.dart';
-import 'package:servicios_flutter/src/pages/usuario/prueba2_page.dart';
+import 'package:servicios_flutter/src/pages/usuario/datos_user_component.dart';
+import 'package:servicios_flutter/src/pages/usuario/opciones_user_component.dart';
 import 'package:servicios_flutter/src/utils/LSImages.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -55,14 +55,14 @@ class _UserShowState extends State<UserShow> {
                 alignment: Alignment.center,
                 child: Text(
                   user.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),
                 ),
               ),
               centerTitle: true,
               scrolledUnderElevation: 2,
               leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.black),
+                icon: const Icon(Icons.arrow_back, color: Colors.black),
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -74,7 +74,7 @@ class _UserShowState extends State<UserShow> {
                         updateUser();
                       });
                     },
-                    icon: Icon(Icons.sync_outlined, color: Colors.black))
+                    icon: const Icon(Icons.sync_outlined, color: Colors.black))
               ],
               pinned: true,
               backgroundColor: Colors.white,
@@ -105,7 +105,7 @@ class _UserShowState extends State<UserShow> {
                   Tab(
                     child: Align(
                       alignment: Alignment.center,
-                      child: Text('Services'.toUpperCase()),
+                      child: Text('Opciones'.toUpperCase()),
                     ),
                   ),
                 ],
@@ -114,7 +114,10 @@ class _UserShowState extends State<UserShow> {
           ];
         },
         body: TabBarView(
-          children: [DatosComponent(user: user), const NadaPage()],
+          children: [
+            DatosComponent(user: user),
+            OpcionesUserComponent(user: user)
+          ],
         ),
       ),
     );

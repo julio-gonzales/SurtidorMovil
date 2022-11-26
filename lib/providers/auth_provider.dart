@@ -26,7 +26,6 @@ class AuthProvider extends ChangeNotifier {
       _isAuthenticated = true;
       notifyListeners();
       print('credenciales correctas');
-      print(token);
       return true;
     } else {
       print('credenciales incorrectas');

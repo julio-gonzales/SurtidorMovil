@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:servicios_flutter/models/producto.dart';
 import 'package:servicios_flutter/providers/firebase_provider.dart';
@@ -75,7 +74,7 @@ class _ProductoListState extends State<ProductoList> {
 
   Container _drawItem(Producto producto) {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       child: Row(
         children: [
           ClipRRect(
@@ -104,7 +103,7 @@ class _ProductoListState extends State<ProductoList> {
                   }
                 },
               )),
-          SizedBox(width: 15),
+          const SizedBox(width: 15),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

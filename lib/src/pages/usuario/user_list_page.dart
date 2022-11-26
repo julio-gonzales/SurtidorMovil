@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:servicios_flutter/providers/firebase_provider.dart';
 import 'package:servicios_flutter/providers/user_provider.dart';
@@ -24,8 +23,8 @@ class _UserListState extends State<UserList> {
     users = userProvider.getUsers();
   }
 
-  double imgHeight = 60;
-  double imgWidth = 60;
+  double imgHeight = 56;
+  double imgWidth = 56;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +64,7 @@ class _UserListState extends State<UserList> {
         final widgetTemp = ListTile(
           title: Text(element.name),
           subtitle: Text(element.email),
-          trailing: Text('Activo', style: TextStyle(color: Colors.blue)),
+          //trailing: Text('Activo', style: TextStyle(color: Colors.blue)),
           enabled: true,
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(100),
@@ -76,7 +75,8 @@ class _UserListState extends State<UserList> {
                   if (snapshot.data == 'no') {
                     return Image.asset(
                       userFotoDefault,
-                      height: 85,
+                      height: imgHeight,
+                      width: imgWidth,
                       fit: BoxFit.cover,
                     );
                   } else {
@@ -84,8 +84,8 @@ class _UserListState extends State<UserList> {
                   }
                 } else {
                   return Container(
-                      padding: EdgeInsets.all(17),
-                      height: imgWidth,
+                      padding: EdgeInsets.all(20),
+                      height: imgHeight,
                       width: imgWidth,
                       child: CircularProgressIndicator());
                 }
@@ -117,7 +117,8 @@ class _UserListState extends State<UserList> {
         width: imgWidth,
         placeholder: (context, url) => Image.asset(
               loadingPoints,
-              height: imgWidth,
+              height: imgHeight,
+              width: imgWidth,
               fit: BoxFit.cover,
             ),
         errorWidget: (context, url, error) => Container(

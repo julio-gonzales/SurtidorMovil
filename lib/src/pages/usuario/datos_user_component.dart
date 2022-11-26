@@ -10,19 +10,20 @@ class DatosComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double espacio = 22;
     return Scaffold(
       backgroundColor: LSColorSecondary,
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.symmetric(vertical: 15, horizontal: 17),
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             shape: BoxShape.rectangle,
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
+                color: Colors.grey.withOpacity(0.2),
                 spreadRadius: 2,
                 blurRadius: 7,
                 offset: const Offset(3, 3), // changes position of shadow
@@ -33,19 +34,21 @@ class DatosComponent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               dato('Nombre', user.name),
+              Divider(height: espacio, thickness: 2),
               dato('Email', user.email),
+              Divider(height: espacio, thickness: 2),
               dato('Telefono', user.telefono),
+              Divider(height: espacio, thickness: 2),
               dato('Dirección', user.direccion),
+              Divider(height: espacio, thickness: 2),
               dato('Estado', user.estado),
-              Divider(),
-              SizedBox(
-                height: 5,
-              ),
+              Divider(height: espacio, thickness: 2),
               dato(
                   'Registrado',
                   DateFormat('yyyy-MM-dd – kk:mm')
                       .format(user.createdAt)
                       .toString()),
+              Divider(height: espacio, thickness: 2),
               dato(
                   'Ultima modificación',
                   DateFormat('yyyy-MM-dd – kk:mm')
@@ -57,7 +60,7 @@ class DatosComponent extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, 'user_edit',  arguments: user);
+          Navigator.pushNamed(context, 'user_edit', arguments: user);
         },
         child: Icon(Icons.edit),
       ),
@@ -92,7 +95,6 @@ class DatosComponent extends StatelessWidget {
                 Text(text == null ? 'Sin registrar' : text,
                     style: TextStyle(color: Colors.black)),
               ],
-              SizedBox(height: 10),
             ],
           ),
         ),

@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:servicios_flutter/src/pages/client/products/list/client_products_list_page.dart';
 import 'package:servicios_flutter/src/pages/crear_cuenta/crear_cuenta_page.dart';
 import 'package:servicios_flutter/src/pages/inicio/inicio_page.dart';
 import 'package:servicios_flutter/src/pages/login/login_page.dart';
@@ -23,12 +22,11 @@ Map<String, WidgetBuilder> getAppRoutes() {
 
     'producto_list': (BuildContext context) => const ProductoList(),
 
-    'usuarioCliente': (BuildContext context) => UsuarioClientePage(),
-    'usuarioEmpleado': (BuildContext context) => UsuarioEmpleadoPage(),
-    'recuperarPassword': (BuildContext context) => RecuperarPage(),
-    'crearCuenta': (BuildContext context) => CrearCuentaPage(),
-    'client/products/list': (BuildContext context) => ClientProductsList(),
-    'inicio': (BuildContext context) => InicioPage(),
-    'tanque': (BuildContext context) => TanquePage()
+    'usuarioCliente': (BuildContext context) => const UsuarioClientePage(),
+    'usuarioEmpleado': (BuildContext context) => const UsuarioEmpleadoPage(),
+    'recuperarPassword': (BuildContext context) => const RecuperarPage(),
+    'crearCuenta': (BuildContext context) => const CrearCuentaPage(),
+    'inicio': (BuildContext context) => const InicioPage(),
+    'tanque': (BuildContext context) => const TanquePage()
   };
 }

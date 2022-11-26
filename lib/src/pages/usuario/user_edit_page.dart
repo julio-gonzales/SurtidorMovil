@@ -276,7 +276,6 @@ class _UserEditState extends State<UserEdit> {
 
   final snackbarUpdate = SnackBar(
     content: const Text('Actualizando datos...'),
-    backgroundColor: Colors.teal[600],
   );
   final snackbarUpdateComplete = SnackBar(
     content: const Text('Datos actualizados correctamente'),
