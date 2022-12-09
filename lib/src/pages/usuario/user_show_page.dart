@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:servicios_flutter/models/user.dart';
+import 'package:servicios_flutter/providers/firebase_provider.dart';
 import 'package:servicios_flutter/providers/user_provider.dart';
 import 'package:servicios_flutter/src/pages/usuario/datos_user_component.dart';
 import 'package:servicios_flutter/src/pages/usuario/opciones_user_component.dart';
 import 'package:servicios_flutter/src/utils/LSImages.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class UserShow extends StatefulWidget {
   final int userId;
@@ -123,26 +123,12 @@ class _UserShowState extends State<UserShow> {
     );
   }
 
-  Future<String> getImageUrl(String foto) async {
-    String img;
-    if (foto != null) {
-      final FirebaseStorage storage = FirebaseStorage.instance;
-      final ref = storage.ref().child(foto);
-      await ref.getDownloadURL().then((value) {
-        img = value;
-      });
-    } else {
-      img = 'no';
-    }
-    return img;
-  }
-
   SizedBox imageBox(String fotoPerfil) {
     return SizedBox(
         height: 350,
         width: double.infinity,
         child: FutureBuilder<String>(
-          future: getImageUrl(fotoPerfil),
+          future: firebaseProvider.getUrlImagen(fotoPerfil),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data == 'no') {
