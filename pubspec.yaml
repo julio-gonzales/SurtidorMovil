@@ -61,6 +61,15 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: "^0.11.0"
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/img/iconos/launcher/surtidor-launcher.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  adaptive_icon_background: "assets/img/iconos/launcher/background-surtidor-launcher.png" # only available for Android 8.0 devices and above
+  adaptive_icon_foreground: "assets/img/iconos/launcher/foreground-surtidor-launcher.png" # only available for And
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -79,6 +88,7 @@ flutter:
   assets:
     - assets/img/
     - assets/img/iconos/
+    - assets/img/iconos/launcher/
     - assets/json/
     - images/
 

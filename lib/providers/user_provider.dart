@@ -37,6 +37,7 @@ class _UserProvider {
     } else {
       print("error get user");
     }
+    return null;
   }
 
   Future<bool> updateUser(int userId, Map mapForm) async {

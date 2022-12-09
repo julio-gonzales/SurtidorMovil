@@ -26,6 +26,7 @@ class _ProductoShowState extends State<ProductoShow> {
     producto = productoProvider.getProducto(widget.productoId);
   }
 
+  int _value = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,11 +70,13 @@ class _ProductoShowState extends State<ProductoShow> {
         children: [
           dato('Nombre', producto.nombre),
           Divider(height: espacio, thickness: 2),
-          dato('Descripción', producto.descripcion),
+          dato('Cantidad', producto.cantidad.toString()),
           Divider(height: espacio, thickness: 2),
           dato('Precio de compra', producto.precioCompra),
           Divider(height: espacio, thickness: 2),
           dato('Precio de venta', producto.precioVenta),
+          Divider(height: espacio, thickness: 2),
+          dato('Descripción', producto.descripcion),
           Divider(height: espacio, thickness: 2),
           dato('Estado', producto.estado),
           Divider(height: espacio, thickness: 2),

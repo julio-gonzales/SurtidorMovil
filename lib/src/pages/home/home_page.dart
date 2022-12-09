@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
             pinned: true,
             automaticallyImplyLeading: false,
             titleSpacing: 0,
-            backgroundColor: Colors.blue[700],
+            backgroundColor: Colors.cyan[500],
             actionsIconTheme: IconThemeData(opacity: 0.0),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,6 +32,7 @@ class HomePage extends StatelessWidget {
         ];
       },
       body: Container(
+        width: double.infinity,
         color: Colors.white,
         child: SingleChildScrollView(
           child: Column(
