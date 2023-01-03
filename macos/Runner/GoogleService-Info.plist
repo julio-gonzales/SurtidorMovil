@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>613855447592-g9k2tfdv9h1rttons96p958pbsr9vv2q.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.613855447592-g9k2tfdv9h1rttons96p958pbsr9vv2q</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCPSEu3Kv_NIj_5W6PMBkBFEZ2CsVqWbGM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>613855447592</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.serviciosFlutter</string>
+	<key>PROJECT_ID</key>
+	<string>surtidor-storage</string>
+	<key>STORAGE_BUCKET</key>
+	<string>surtidor-storage.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:613855447592:ios:8cc6e4dc11528aed8ec31d</string>
+</dict>
+</plist>
