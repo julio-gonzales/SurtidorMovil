@@ -6,32 +6,32 @@ import 'package:servicios_flutter/src/api/environment.dart';
 import 'package:servicios_flutter/src/models/response_api.dart';
 import 'package:http/http.dart' as http;
 import '../models/response_api.dart';
-import '../models/tanque.dart';
+import '../models/bomba.dart';
 //libreria por si las peticiones demoran
 import 'dart:async';
 
-class TanquesProvider {
+class BombasProvider {
   String _url = Environment.API_SERVICIOS;
-  String _api = '/api/tanques';
+  String _api = '/api/bombas';
 
   BuildContext context;
   Future init(BuildContext context) {
     this.context = context;
   }
 
-  Future<List<Tanque>> getTanques() async {
+  Future<List<Bomba>> getBombas() async {
     try {
-      Uri url = Uri.parse('http://192.168.0.10:80/api/tanques');
+      Uri url = Uri.parse('http://192.168.0.10:80/api/bombas');
       var res = await http.get(url);
       final data = jsonDecode(res.body);
       List<dynamic> list = json.decode(res.body);
-      List<Tanque> tanques = [];
+      List<Bomba> bombas = [];
       list.forEach((element) {
         print(element);
-        final tempTanque = Tanque.fromJson(element);
-        tanques.add(tempTanque);
+        final tempTanque = Bomba.fromJson(element);
+        bombas.add(tempTanque);
       });
-      return tanques;
+      return bombas;
     } catch (e) {
       print('Error aqui: $e');
       return null;
@@ -39,4 +39,4 @@ class TanquesProvider {
   }
 }
 
-final tanqueService = new TanquesProvider();
+final bombaService = new BombasProvider();

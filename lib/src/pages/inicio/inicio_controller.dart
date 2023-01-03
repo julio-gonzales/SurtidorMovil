@@ -16,4 +16,8 @@ class InicioController {
   void irTanque() {
     Navigator.pushNamed(context, 'tanque');
   }
+
+  void irBomba() {
+    Navigator.pushNamed(context, 'bomba');
+  }
 }

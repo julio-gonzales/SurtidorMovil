@@ -48,9 +48,9 @@ class LoginController {
     //bool valorCompare = responseApi.message.compareTo("el usuario entro correctamente") == 0;
 
     //print(responseApi.success);
-    print(responseApi.success);
+    //print(responseApi.success);
     if (responseApi.success) {
-      print(responseApi.data);
+      //print(responseApi.data);
       User user = User.fromJson(responseApi.data);
       _sharedPref.save('user', user.toJson());
       //el navigator es para que nos diriga a otra palabra sin volver atras

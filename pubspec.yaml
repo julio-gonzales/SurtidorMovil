@@ -34,11 +34,15 @@ dependencies:
   lottie: ^1.4.3
   http: ^0.13.3
   shared_preferences: ^2.0.5
+  easy_refresh: ^3.0.4+4
+  fl_chart: ^0.55.1 
+  font_awesome_flutter: ^8.4.0
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  percent_indicator: ^2.1.8
 
 dev_dependencies:
   flutter_test:

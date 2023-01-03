@@ -25,7 +25,7 @@ class _InicioPageState extends State<InicioPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Menu Principal"),
+        title: Text("Menu Infraestructura"),
       ),
       body: Container(
           child: Column(
@@ -35,11 +35,11 @@ class _InicioPageState extends State<InicioPage> {
           ),
           _buttonTanques(),
           _buttonBombas(),
-          _buttonTrabajadores(),
+          //_buttonTrabajadores(),
           SizedBox(
             height: 50,
           ),
-          _buttonCerrarSesion(),
+//          _buttonCerrarSesion(),
         ],
       )),
     );
@@ -68,8 +68,8 @@ class _InicioPageState extends State<InicioPage> {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
       child: ElevatedButton(
-        //onPressed: _con.goToUsuarioClientePage,
-        //Navigator.pushNamed(context, 'usuarioCliente');
+        onPressed: _con.irBomba,
+        //Navigator.pushNamed(context, 'usuarioCliente'),
         child: Text('Ver Bombas'),
         style: ElevatedButton.styleFrom(
             primary: MyColors.primaryColor,
